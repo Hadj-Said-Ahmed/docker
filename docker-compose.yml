@@ -1,0 +1,51 @@
+version: "3.7"
+
+services:
+  jenkins:
+    image: jenkins/jenkins
+    container_name: tender_lamport
+    ports:
+      -8080:8080
+    volumes:
+      - /home/jenkins/jenkins_home:/var/jenkins_home
+      - ../../var/run/docker.sock:/var/run/docker.sock
+    restart: on-failure
+
+  sonar:
+    image: sonarqube
+    container_name: sonar
+    ports:
+      -9000:9000
+    volumes:
+      - /home/sonarqube/data:/opt/sonarqube/data
+    restart: on-failure
+
+  nexus:
+    image: jenkins/jenkins
+    container_name: tender_lamport
+    ports:
+      -8081:8081
+    volumes:
+      - /home/nexus/nexus-data:/sonatype-work
+      - ../../var/run/docker.sock:/var/run/docker.sock
+    restart: on-failure
+
+  prometheus:
+    image: prom/prometheus
+    restart: unless-stopped
+    container_name: prometheus
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus:/prometheus
+
+  grafana:
+    image: grafana/grafana
+    restart: always
+    ports:
+      - "8080:3000"
+    depends_on:
+      - influxdb
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+
