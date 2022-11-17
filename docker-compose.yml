@@ -40,23 +40,12 @@ services:
       - ./prometheus/:/etc/prometheus/
       - prometheus:/prometheus
 
-  grafana:
-    image: grafana/grafana
-    restart: always
-    container_name: grafana1
-    ports:
-      - "3000:3000"
-    depends_on:
-      - influxdb
-    volumes:
-      - grafana-storage:/var/lib/grafana
-
 volumes:
   jenkins:
   sonarqube:
   nexus3:
   prometheus:
-  grafana1:
+
   
 
 
