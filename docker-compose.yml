@@ -22,7 +22,7 @@ services:
 
   nexus:
     image: sonatype/nexus3
-    container_name: nexus1
+    container_name: nexus3
     ports:
       - "8081:8081"
     volumes:
@@ -56,7 +56,7 @@ volumes:
   sonarqube:
   nexus3:
   prometheus:
-  grafana:
+  grafana1:
   
 
 
