@@ -43,6 +43,7 @@ services:
   grafana:
     image: grafana/grafana
     restart: always
+    container_name: grafana1
     ports:
       - "8080:3000"
     depends_on:
