@@ -19,11 +19,22 @@ services:
     volumes:
       - /home/sonarqube/data:/opt/sonarqube/data
     restart: on-failure
+
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus1
+    ports:
+      - "8081:8081"
+    volumes:
+      - /home/nexus/nexus-data:/sonatype-work
+      - ../../var/run/docker.sock:/var/run/docker.sock
+    restart: on-failure
  
 
 volumes:
   jenkins:
   sonarqube:
+  nexus3:
   
 
 
