@@ -29,12 +29,33 @@ services:
       - /home/nexus/nexus-data:/sonatype-work
       - ../../var/run/docker.sock:/var/run/docker.sock
     restart: on-failure
- 
+
+  prometheus:
+    image: prom/prometheus
+    restart: unless-stopped
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus:/prometheus
+
+  grafana:
+    image: grafana/grafana
+    restart: always
+    ports:
+      - "8080:3000"
+    depends_on:
+      - influxdb
+    volumes:
+      - grafana-storage:/var/lib/grafana
 
 volumes:
   jenkins:
   sonarqube:
   nexus3:
+  prometheus:
+  grafana:
   
 
 
